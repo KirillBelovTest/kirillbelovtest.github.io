@@ -1,0 +1,398 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16819,        390]
+NotebookOptionsPosition[     16335,        373]
+NotebookOutlinePosition[     16735,        389]
+CellTagsIndexPosition[     16692,        386]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"PercentOrAbsolute", "[", "s_String", "]"}], " ", "/;", " ", 
+    RowBox[{"StringMatchQ", "[", 
+     RowBox[{
+      RowBox[{"StringTrim", "[", "s", "]"}], ",", " ", 
+      RowBox[{"__", " ", "~~", " ", "\"\<%\>\""}]}], "]"}]}], " ", ":=", " ", 
+   "\n", 
+   RowBox[{
+    RowBox[{"Interpreter", "[", "\"\<Percent\>\"", "]"}], "[", 
+    RowBox[{"StringTrim", "[", "s", "]"}], "]"}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"PercentOrAbsolute", "[", "s_String", "]"}], " ", "/;", " ", 
+    RowBox[{"StringMatchQ", "[", 
+     RowBox[{
+      RowBox[{"StringTrim", "[", "s", "]"}], ",", " ", "NumberString"}], 
+     "]"}]}], " ", ":=", " ", "\n", 
+   RowBox[{
+    RowBox[{"Interpreter", "[", "\"\<Number\>\"", "]"}], "[", 
+    RowBox[{"StringTrim", "[", "s", "]"}], "]"}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "ComplexPercentCalculator", "]"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ComplexPercentCalculator", "[", "\n", "\t", 
+    RowBox[{
+     RowBox[{"initAmount_", "?", "NumericQ"}], ",", " ", "\n", "\t", 
+     "period_Integer", ",", " ", "\n", "\t", 
+     RowBox[{"percent_", "?", "NumericQ"}], ",", " ", "\[IndentingNewLine]", 
+     "\t", 
+     RowBox[{"additionAmount_", "?", "NumericQ"}], ",", " ", 
+     "\[IndentingNewLine]", "\t", "additionInterval_Integer", ",", " ", "\n", 
+     "\t", 
+     RowBox[{"paymentAmount", ":", " ", 
+      RowBox[{
+       RowBox[{"_", "?", "NumericQ"}], " ", "|", " ", "_Quantity"}]}], ",", 
+     " ", "\n", "\t", "paymentInterval_Integer", ",", " ", "\n", "\t", 
+     RowBox[{"withdrawalAmount", ":", " ", 
+      RowBox[{
+       RowBox[{"_", "?", "NumericQ"}], " ", "|", " ", "_Quantity"}]}], ",", 
+     " ", "\n", "\t", "withdrawalInterval_Integer"}], "\[IndentingNewLine]", 
+    "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"row", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ",", " ", 
+       RowBox[{"amount", " ", "=", " ", "initAmount"}], ",", " ", 
+       RowBox[{"amountPrevious", " ", "=", " ", "initAmount"}], ",", " ", 
+       RowBox[{"periodProfit", " ", "=", " ", "0.0"}], ",", " ", 
+       RowBox[{"profit", " ", "=", " ", "0.0"}], ",", " ", 
+       RowBox[{"profitPercent", " ", "=", " ", "0.0"}], ",", " ", "\n", "\t", 
+       RowBox[{"totalAddition", " ", "=", " ", "0.0"}]}], "\n", "}"}], ",", 
+     " ", "\n", "\t", 
+     RowBox[{"Table", "[", "\n", "\t\t", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"amountPrevious", " ", "=", " ", "amount"}], ";", " ", "\n", 
+        "\t\t", "\n", "\t\t", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"i", " ", "===", " ", "1"}], ",", " ", "\n", "\t\t\t", 
+          RowBox[{
+           RowBox[{"amount", " ", "=", " ", 
+            RowBox[{"initAmount", " ", "-", " ", "\n", "\t\t\t", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"NumericQ", "[", "paymentAmount", "]"}], ",", " ", 
+               "\n", "\t\t\t\t", "paymentAmount", ",", " ", "\n", "\t\t\t\t", 
+               RowBox[{"amount", " ", "*", " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"QuantityMagnitude", "[", "paymentAmount", "]"}], 
+                  " ", "/", " ", "100.0"}], ")"}]}]}], "\n", "\t\t\t", 
+              "]"}]}]}], ";", " ", "\n", "\t\t\t", 
+           RowBox[{"profit", " ", "=", " ", 
+            RowBox[{"amount", " ", "-", " ", "initAmount"}]}], ";", " ", "\n",
+            "\t\t\t", 
+           RowBox[{"profitPercent", " ", "=", " ", 
+            RowBox[{"100.0", " ", "*", " ", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"amount", " ", "-", " ", "initAmount"}], ")"}], " ", 
+               "/", " ", "initAmount"}], ")"}]}]}], ";"}], " ", ",", " ", 
+          "\n", "\t\t", 
+          RowBox[{"(*", "Else", "*)"}], "\n", "\t\t\t", 
+          RowBox[{
+           RowBox[{"amount", " ", "=", " ", "\n", "\t\t\t\t", 
+            RowBox[{
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Mod", "[", 
+                 RowBox[{"i", ",", " ", "additionInterval"}], "]"}], " ", "===",
+                 " ", "0"}], ",", " ", 
+               RowBox[{
+                RowBox[{"totalAddition", " ", "+=", " ", "additionAmount"}], 
+                ";", " ", "additionAmount"}], ",", " ", "0.0"}], "]"}], " ", 
+             "+", " ", "\n", "\t\t\t\t", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1", " ", "+", " ", 
+                RowBox[{"percent", "/", "100.0"}]}], ")"}], " ", "*", " ", 
+              RowBox[{"(", 
+               RowBox[{"amount", " ", "-", " ", "\n", "\t\t\t\t", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Mod", "[", 
+                    RowBox[{"i", ",", " ", "paymentInterval"}], "]"}], " ", "===",
+                    " ", "0"}], ",", " ", "\n", "\t\t\t\t\t", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"NumericQ", "[", "paymentAmount", "]"}], ",", " ",
+                     "\n", "\t\t\t\t\t\t", "paymentAmount", ",", " ", "\n", 
+                    "\t\t\t\t\t\t", 
+                    RowBox[{"amount", " ", "*", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"QuantityMagnitude", "[", "paymentAmount", "]"}], 
+                    " ", "/", " ", "100.0"}], ")"}]}]}], "\n", "\t\t\t\t\t", 
+                   "]"}], ",", " ", "\n", "\t\t\t\t\t", "0.0"}], "\n", 
+                 "\t\t\t\t", "]"}], " ", "-", " ", "\n", "\t\t\t\t", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Mod", "[", 
+                    RowBox[{"i", ",", " ", "withdrawalInterval"}], "]"}], " ",
+                    "===", " ", "0"}], ",", " ", "\n", "\t\t\t\t\t", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"NumericQ", "[", "withdrawalAmount", "]"}], ",", 
+                    " ", "\n", "\t\t\t\t\t\t", "withdrawalAmount", ",", " ", 
+                    "\n", "\t\t\t\t\t\t", 
+                    RowBox[{"amount", " ", "*", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    "QuantityMagnitude", "[", "withdrawalAmount", "]"}], " ", 
+                    "/", " ", "100.0"}], ")"}]}]}], "\n", "\t\t\t\t\t", "]"}],
+                   ",", " ", "\n", "\t\t\t\t", "0.0"}], "]"}]}], ")"}]}]}]}], 
+           ";", " \t\t\t\t", "\n", "\t\t\t", "\n", "\t\t\t", 
+           RowBox[{"profit", " ", "=", " ", 
+            RowBox[{
+            "amount", " ", "-", " ", "initAmount", " ", "-", " ", 
+             "totalAddition"}]}], ";", " ", "\n", "\t\t\t", 
+           RowBox[{"profitPercent", " ", "=", " ", 
+            RowBox[{"100.0", " ", "*", " ", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                "amount", " ", "-", " ", "initAmount", " ", "-", " ", 
+                 "totalAddition"}], ")"}], " ", "/", " ", "initAmount"}], 
+              ")"}]}]}], ";"}]}], " ", "\n", "\t\t", "]"}], ";", " ", "\n", 
+        "\t\t", "\n", "\t\t", 
+        RowBox[{"<|", "\n", "\t\t\t", 
+         RowBox[{
+          RowBox[{
+          "\"\<\:041c\:0435\:0441\:044f\:0446\>\"", " ", "->", " ", "i"}], 
+          ",", " ", "\n", "\t\t\t", 
+          RowBox[{
+          "\"\<\:0421\:0443\:043c\:043c\:0430\>\"", " ", "->", " ", 
+           "amount"}], ",", " ", "\n", "\t\t\t", 
+          RowBox[{
+          "\"\<\:0414\:043e\:0445\:043e\:0434 \:0437\:0430 \:043c\:0435\:0441\
+\:044f\:0446\>\"", " ", "->", " ", 
+           RowBox[{"amount", " ", "-", " ", "amountPrevious"}]}], ",", " ", 
+          "\n", "\t\t\t", 
+          RowBox[{
+          "\"\<\:0414\:043e\:0445\:043e\:0434 \
+\:0432\:0441\:0435\:0433\:043e\>\"", " ", "->", " ", "profit"}], ",", " ", 
+          "\n", "\t\t\t", 
+          RowBox[{
+          "\"\<\:0414\:043e\:0445\:043e\:0434 \:0432\:0441\:0435\:0433\:043e \
+\:0432 %\>\"", " ", "->", " ", "profitPercent"}]}], "\n", "\t\t", "|>"}]}], 
+       ",", " ", "\n", "\t\t", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", " ", "1", ",", " ", "period", ",", " ", "1"}], 
+        "}"}]}], "\n", "\t", "]"}]}], "\n", "]"}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"toHTMLTable", "[", "data_", "]"}], " ", ":=", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<<style>\ntr:nth-child(even) {\n  background-color: #D6EEEE;\n}\n\
+</style>\n<table style=\\\"text-align:left\\\">\>\"", "<>", 
+     RowBox[{"StringRiffle", "[", 
+      RowBox[{
+       RowBox[{"Flatten", "[", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\"\<<tr>\>\"", "<>", 
+           RowBox[{"StringJoin", "[", 
+            RowBox[{
+             RowBox[{"Map", "[", 
+              RowBox[{
+              "StringTemplate", "[", 
+               "\"\<<th style=\\\"width:150px\\\">`1`</th>\>\"", "]"}], "]"}],
+              " ", "@", " ", 
+             RowBox[{"First", "@", 
+              RowBox[{"Keys", "@", "data"}]}]}], "]"}], " ", "<>", " ", 
+           "\"\<</tr>\>\""}], ",", " ", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Map", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"\"\<<tr>\>\"", "<>", 
+               RowBox[{"StringJoin", "[", "#", "]"}], "<>", "\"\<</tr>\>\""}],
+               "&"}], "@*", 
+             RowBox[{"Map", "[", 
+              RowBox[{"StringTemplate", "[", "\"\<<td>`1`</td>\>\"", "]"}], 
+              "]"}]}], "]"}], " ", "@", " ", 
+           RowBox[{"Values", "@", "data"}]}]}], "\[IndentingNewLine]", "}"}], 
+        "]"}], ",", " ", "\[IndentingNewLine]", "\"\<\\n\>\""}], 
+      "\[IndentingNewLine]", "]"}], "<>", "\"\<\\n</table>\>\""}]}], ";"}], 
+  " ", "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"page", " ", "=", " ", 
+    RowBox[{"FormPage", "[", 
+     RowBox[{
+      RowBox[{"{", "\n", "\t", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Amount\>\"", ",", " ", 
+           "\"\<\:041d\:0430\:0447\:0430\:043b\:044c\:043d\:044b\:0439 \:0434\
+\:0435\:043f\:043e\:0437\:0438\:0442\>\""}], "}"}], " ", "->", " ", 
+         "\"\<Number\>\""}], ",", " ", "\n", "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Period\>\"", ",", " ", 
+           "\"\<\:041f\:0435\:0440\:0438\:043e\:0434 \:0432\:043a\:043b\:0430\
+\:0434\:0430\>\""}], "}"}], " ", "->", " ", "\"\<Integer\>\""}], ",", " ", 
+        "\n", "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Percent\>\"", ",", " ", 
+           "\"\<\:041f\:0440\:043e\:0446\:0435\:043d\:0442 \:0432 \
+\:043c\:0435\:0441\:044f\:0446\>\""}], "}"}], " ", "->", " ", 
+         "\"\<Number\>\""}], ",", " ", "\n", "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<AdditionAmount\>\"", ",", " ", 
+           "\"\<\:041f\:043e\:043f\:043e\:043b\:043d\:0435\:043d\:0438\:0435, \
+$\>\""}], "}"}], " ", "->", " ", 
+         RowBox[{"\"\<Number\>\"", " ", "->", " ", "0"}]}], ",", " ", "\n", 
+        "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<AdditionInterval\>\"", ",", " ", 
+           "\"\<\:0427\:0430\:0441\:0442\:043e\:0442\:0430 \:043f\:043e\:043f\
+\:043e\:043b\:043d\:0435\:043d\:0438\:0439\>\""}], "}"}], " ", "->", " ", 
+         RowBox[{"\"\<Integer\>\"", " ", "->", " ", "1"}]}], ",", " ", "\n", 
+        "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<PaymentAmount\>\"", ",", " ", 
+           "\"\<\:041f\:043b\:0430\:0442\:0435\:0436, $ \:0438\:043b\:0438 \
+%\>\""}], "}"}], " ", "->", " ", 
+         RowBox[{"\"\<String\>\"", " ", "->", " ", "\"\<0\>\""}]}], ",", " ", 
+        "\n", "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<PaymentInterval\>\"", ",", " ", 
+           "\"\<\:0427\:0430\:0441\:0442\:043e\:0442\:0430 \:043f\:043b\:0430\
+\:0442\:0435\:0436\:0430\>\""}], "}"}], " ", "->", " ", 
+         RowBox[{"\"\<Integer\>\"", " ", "->", " ", "1"}]}], ",", " ", "\n", 
+        "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<WithdrawalAmount\>\"", ",", " ", 
+           
+           "\"\<\:0421\:043d\:044f\:0442\:0438\:0435, $ \:0438\:043b\:0438 \
+%\>\""}], "}"}], " ", "->", " ", 
+         RowBox[{"\"\<String\>\"", " ", "->", " ", "\"\<0\>\""}]}], ",", " ", 
+        "\n", "\t", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<WithdrawalInterval\>\"", ",", " ", 
+           "\"\<\:0427\:0430\:0441\:0442\:043e\:0442\:0430 \:0441\:043d\:044f\
+\:0442\:0438\:044f\>\""}], "}"}], " ", "->", " ", 
+         RowBox[{"\"\<Integer\>\"", " ", "->", " ", "1"}]}]}], "\n", "}"}], 
+      ",", " ", 
+      RowBox[{"Function", "[", "\n", "\t", 
+       RowBox[{"toHTMLTable", "[", "\n", "\t\t", 
+        RowBox[{
+        "ComplexPercentCalculator", "[", "\[IndentingNewLine]", "\t\t\t", 
+         RowBox[{
+         "#Amount", ",", " ", "#Period", ",", " ", "#Percent", ",", " ", 
+          "\[IndentingNewLine]", "\t\t\t", "#AdditionAmount", ",", " ", 
+          "#AdditionInterval", ",", " ", "\[IndentingNewLine]", "\t\t\t", 
+          RowBox[{"PercentOrAbsolute", "[", "#PaymentAmount", "]"}], ",", " ",
+           "#PaymentInterval", ",", " ", "\[IndentingNewLine]", "\t\t\t", 
+          RowBox[{"PercentOrAbsolute", "[", "#WithdrawalAmount", "]"}], ",", 
+          " ", "#WithdrawalInterval"}], "\[IndentingNewLine]", "\t\t", "]"}], 
+        "\n", "\t", "]"}], "\n", "]"}]}], "]"}]}], ";"}], " ", "\n"}], "\n", 
+ RowBox[{"CloudDeploy", "[", 
+  RowBox[{"page", ",", " ", "\"\<ComplexPercentCalculator\>\"", ",", " ", 
+   RowBox[{"Permissions", "->", "\"\<Public\>\""}]}], "]"}]}], "Code",
+ CellChangeTimes->{{3.9102407172283907`*^9, 3.9102407187454557`*^9}, {
+   3.910240791294601*^9, 3.9102411323969345`*^9}, {3.91024121675548*^9, 
+   3.910241253928652*^9}, {3.9102413205108624`*^9, 3.9102413385658827`*^9}, {
+   3.910241404895108*^9, 3.9102414067525373`*^9}, {3.910241459092304*^9, 
+   3.910241489167526*^9}, {3.9102422092255*^9, 3.910242219547515*^9}, {
+   3.910242326473653*^9, 3.910242352236412*^9}, 3.9102424228538885`*^9, {
+   3.9102424622257776`*^9, 3.91024248243927*^9}, {3.910242532111631*^9, 
+   3.9102425415042534`*^9}, {3.910242585520138*^9, 3.9102425934222035`*^9}, {
+   3.910242628581154*^9, 3.9102426352081127`*^9}, 3.9102426734978895`*^9, {
+   3.910242791724655*^9, 3.91024298503409*^9}, {3.910243206357828*^9, 
+   3.9102432135089808`*^9}, {3.9102432878429904`*^9, 
+   3.9102433245011854`*^9}, {3.910243423456728*^9, 3.910243426746254*^9}, {
+   3.910243456763234*^9, 3.910243457232894*^9}, {3.9102435083174515`*^9, 
+   3.910243553496718*^9}, {3.9102436272152433`*^9, 3.91024365628951*^9}, {
+   3.910244953149432*^9, 3.9102449703509903`*^9}, {3.9102478112396736`*^9, 
+   3.91024781575482*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"bc589732-5b82-4780-8b3e-3fe7e4644689"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"CloudObject", "[", 
+   TemplateBox[{
+    "\"https://www.wolframcloud.com/obj/kirillbelovtest/\
+ComplexPercentCalculator\"", 
+     "https://www.wolframcloud.com/obj/kirillbelovtest/\
+ComplexPercentCalculator"},
+    "HyperlinkURL"], "]"}],
+  CloudObject[
+  "https://www.wolframcloud.com/obj/kirillbelovtest/ComplexPercentCalculator"],
+  SelectWithContents->True]], "Output",
+ CellChangeTimes->{3.9102478198679667`*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"ae0b424a-429e-4223-920a-a383c3f6ca54"]
+}, Open  ]]
+},
+WindowSize->{1146, 778},
+WindowMargins->{{Automatic, 161}, {73, Automatic}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a70c33da-b994-4946-ba92-8446b06dfb36"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 15197, 333, 1940, "Code",ExpressionUUID->"bc589732-5b82-4780-8b3e-3fe7e4644689"],
+Cell[15780, 357, 539, 13, 39, "Output",ExpressionUUID->"ae0b424a-429e-4223-920a-a383c3f6ca54"]
+}, Open  ]]
+}
+]
+*)
+

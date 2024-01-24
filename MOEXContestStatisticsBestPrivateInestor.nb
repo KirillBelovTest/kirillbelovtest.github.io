@@ -1,0 +1,177 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7298,        169]
+NotebookOptionsPosition[      6065,        139]
+NotebookOutlinePosition[      6464,        155]
+CellTagsIndexPosition[      6421,        152]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"url", " ", "=", " ", 
+  "\"\<https://ftp.moex.com/pub/info/stats_contest/2023/\>\""}]], "Input",
+ CellChangeTimes->{{3.9122294057501802`*^9, 3.9122294175463057`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"52714d22-f2c6-4042-af40-3e6a74a75b48"],
+
+Cell[BoxData["\<\"https://ftp.moex.com/pub/info/stats_contest/2023/\"\>"], \
+"Output",
+ CellChangeTimes->{3.9122294191216755`*^9, 3.912610131958702*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"a8dab485-e04a-43cb-b1a0-5e50df87020a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Import", "[", "url", "]"}]], "Input",
+ CellChangeTimes->{{3.9126101335646515`*^9, 3.9126101364073744`*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"ddbe5e4d-46b5-4ec0-93e8-69807f7b4280"],
+
+Cell[BoxData["\<\"ftp.moex.com - /pub/info/stats_contest/2023/\\n\\n  [To \
+Parent Directory]\\n\\n10/5/2023 11:59 PM <dir> 20231005\\n10/7/2023 12:15 AM \
+<dir> 20231006\\n10/16/2023 6:33 PM <dir> 20231009\\n10/16/2023 6:25 PM <dir> \
+20231010\\n10/16/2023 5:52 PM <dir> 20231011\\n10/16/2023 5:49 PM <dir> \
+20231012\\n10/16/2023 5:39 PM <dir> 20231013\\n10/17/2023 12:17 AM <dir> \
+20231016\\n10/18/2023 12:17 AM <dir> 20231017\\n10/19/2023 12:18 AM <dir> \
+20231018\\n10/20/2023 12:18 AM <dir> 20231019\\n10/21/2023 12:17 AM <dir> \
+20231020\\n10/24/2023 12:18 AM <dir> 20231023\\n10/25/2023 12:18 AM <dir> \
+20231024\\n10/26/2023 12:18 AM <dir> 20231025\\n10/27/2023 12:18 AM <dir> \
+20231026\\n10/28/2023 12:18 AM <dir> 20231027\\n10/31/2023 12:18 AM <dir> \
+20231030\\n11/1/2023 12:18 AM <dir> 20231031\\n11/2/2023 12:18 AM <dir> \
+20231101\\n11/3/2023 12:18 AM <dir> 20231102\\n11/4/2023 12:18 AM <dir> \
+20231103\\n11/7/2023 12:17 AM <dir> 20231106\\n11/8/2023 12:18 AM <dir> \
+20231107\\n11/9/2023 12:18 AM <dir> 20231108\\n11/10/2023 12:19 AM <dir> \
+20231109\\n11/11/2023 12:19 AM <dir> 20231110\\n11/14/2023 12:20 AM <dir> \
+20231113\\n11/15/2023 12:20 AM <dir> 20231114\\n11/16/2023 12:19 AM <dir> \
+20231115\\n11/17/2023 12:19 AM <dir> 20231116\\n11/18/2023 12:20 AM <dir> \
+20231117\\n11/21/2023 12:19 AM <dir> 20231120\\n11/22/2023 12:19 AM <dir> \
+20231121\\n11/23/2023 12:20 AM <dir> 20231122\\n11/24/2023 12:20 AM <dir> \
+20231123\\n11/25/2023 12:20 AM <dir> 20231124\\n11/28/2023 12:21 AM <dir> \
+20231127\\n11/29/2023 12:20 AM <dir> 20231128\\n11/30/2023 12:19 AM <dir> \
+20231129\\n12/1/2023 12:19 AM <dir> 20231130\\n12/2/2023 12:19 AM <dir> \
+20231201\\n12/5/2023 12:20 AM <dir> 20231204\\n12/6/2023 12:19 AM <dir> \
+20231205\\n12/7/2023 12:20 AM <dir> 20231206\\n12/8/2023 12:19 AM <dir> \
+20231207\\n12/9/2023 12:18 AM <dir> 20231208\\n12/12/2023 12:20 AM <dir> \
+20231211\\n12/13/2023 12:20 AM <dir> 20231212\\n12/14/2023 12:18 AM <dir> \
+20231213\\n12/15/2023 12:19 AM <dir> 20231214\\n12/16/2023 12:20 AM <dir> \
+20231215\\n12/19/2023 12:20 AM <dir> 20231218\\n12/20/2023 12:19 AM <dir> \
+20231219\\n12/21/2023 12:19 AM <dir> 20231220\\n12/21/2023 12:48 AM <dir> all\
+\\n12/20/2023 11:59 PM 598 nomlist.csv\\n12/22/2023 1:00 AM 4819523 \
+result_day.csv\\n12/21/2023 12:15 AM 652972 trader.csv\"\>"], "Output",
+ CellChangeTimes->{3.912610141646055*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"c48bbcb8-f2fa-478b-9486-b777cb954cfb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"text", " ", "=", " ", 
+    RowBox[{"Import", "[", 
+     RowBox[{
+      RowBox[{"URLBuild", "[", 
+       RowBox[{"{", 
+        RowBox[{"url", ",", " ", "\"\<result_day.csv\>\""}], "}"}], "]"}], 
+      ",", " ", "\"\<Text\>\"", ",", " ", 
+      RowBox[{
+      "CharacterEncoding", " ", "->", " ", "\"\<WindowsCyrillic\>\""}]}], 
+     "]"}]}], ";"}], " "}]], "Input",
+ CellChangeTimes->{{3.912610156889385*^9, 3.9126102852772303`*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"918b8a64-3ba1-4d1b-b6a0-f4b6cbf3e918"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Import", "nfurl", 
+   "\"Unable to retrieve data from \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"https://ftp.moex.com/pub/info/stats_contest/2023/\
+result_day.csv\\\\\\\"\\\"}]\\). Consult Internal`$LastInternalFailure for \
+potential information.\"", 2, 11, 7, 19645996048505175833, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{{3.9126103284981976`*^9, 3.912610356742278*^9}},
+ CellLabel->
+  "During evaluation of \
+In[11]:=",ExpressionUUID->"cbf0770c-7310-41e6-8df5-b08365713567"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"StringSplit", "[", 
+   RowBox[{"text", ",", " ", "\"\<\\n\>\""}], "]"}], "[", 
+  RowBox[{"[", 
+   RowBox[{";;", "2"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.912610250077657*^9, 3.91261026254576*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"7d870ad7-f1fd-4e9e-bb10-52eaaa015540"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "StringSplit", "strse", 
+   "\"String or list of strings expected at position \\!\\(\\*RowBox[{\\\"1\\\
+\"}]\\) in \\!\\(\\*RowBox[{\\\"StringSplit\\\", \\\"[\\\", \
+RowBox[{\\\"$Failed\\\", \\\",\\\", \\\"\\\\\\\"\\\\\\\\n\\\\\\\"\\\"}], \
+\\\"]\\\"}]\\).\"", 2, 10, 6, 19645996048505175833, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.91261032865889*^9},
+ CellLabel->
+  "During evaluation of \
+In[10]:=",ExpressionUUID->"62805b93-5198-4001-b95e-79ce2ba3be2d"],
+
+Cell[BoxData[
+ RowBox[{"StringSplit", "[", 
+  RowBox[{"$Failed", ",", "\<\"\\n\"\>"}], "]"}]], "Output",
+ CellChangeTimes->{3.9126102630928116`*^9, 3.9126103286868916`*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"a211dcdd-dc32-4d4b-99c5-2db7e7264f22"]
+}, Open  ]]
+},
+WindowSize->{918, 892},
+WindowMargins->{{Automatic, 451}, {22, Automatic}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"489f0f53-95b2-4877-a445-66f517fcece2"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 268, 4, 31, "Input",ExpressionUUID->"52714d22-f2c6-4042-af40-3e6a74a75b48"],
+Cell[851, 28, 230, 3, 35, "Output",ExpressionUUID->"a8dab485-e04a-43cb-b1a0-5e50df87020a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1118, 36, 209, 3, 31, "Input",ExpressionUUID->"ddbe5e4d-46b5-4ec0-93e8-69807f7b4280"],
+Cell[1330, 41, 2459, 32, 1338, "Output",ExpressionUUID->"c48bbcb8-f2fa-478b-9486-b777cb954cfb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3826, 78, 558, 14, 31, "Input",ExpressionUUID->"918b8a64-3ba1-4d1b-b6a0-f4b6cbf3e918"],
+Cell[4387, 94, 527, 11, 50, "Message",ExpressionUUID->"cbf0770c-7310-41e6-8df5-b08365713567"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4951, 110, 321, 7, 31, "Input",ExpressionUUID->"7d870ad7-f1fd-4e9e-bb10-52eaaa015540"],
+Cell[5275, 119, 520, 11, 52, "Message",ExpressionUUID->"62805b93-5198-4001-b95e-79ce2ba3be2d"],
+Cell[5798, 132, 251, 4, 57, "Output",ExpressionUUID->"a211dcdd-dc32-4d4b-99c5-2db7e7264f22"]
+}, Open  ]]
+}
+]
+*)
+

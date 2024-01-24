@@ -1,0 +1,114 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3904,        106]
+NotebookOptionsPosition[      3210,         86]
+NotebookOutlinePosition[      3641,        103]
+CellTagsIndexPosition[      3598,        100]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"myFunction", "[", 
+  RowBox[{"1", ",", " ", "2.0", ",", " ", 
+   RowBox[{"1", "/", "3"}], ",", " ", 
+   RowBox[{"1", "+", "I"}], ",", " ", "\"\<string\>\"", ",", " ", "symbol", 
+   ",", " ", "_", ",", " ", "__", ",", " ", "___", ",", " ", "_.", ",", " ", 
+   "a_", ",", " ", 
+   RowBox[{"b", ":", " ", "_"}], ",", " ", "c__", ",", " ", 
+   RowBox[{"d", ":", " ", "__"}], ",", " ", "e___", ",", " ", 
+   RowBox[{"f", ":", " ", "___"}], ",", " ", "g_.", ",", " ", 
+   RowBox[{"f", ":", " ", "_."}], ",", " ", "\n", "\t", 
+   RowBox[{"t", ":", " ", "_", ":", " ", "Automatic"}], ",", " ", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"_", ",", " ", "_"}], "}"}], ".."}], ",", " ", 
+   RowBox[{
+    RowBox[{"<|", 
+     RowBox[{"_", " ", "->", " ", "_"}], "|>"}], "..."}], ",", " ", 
+   RowBox[{"True", " ", "|", " ", "False"}], ",", " ", "_Integer", ",", " ", 
+   "_Real", ",", " ", "_Complex", ",", " ", "_Rational", ",", " ", "_Symbol", 
+   ",", " ", "\n", "\t", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"_String", " ", "|", " ", "_Symbol", " ", "|", " ", 
+      RowBox[{"{", "__Integer", "}"}], " ", "|", " ", 
+      RowBox[{"{", "___Real", "}"}]}], ")"}], "..."}], ",", " ", 
+   RowBox[{"OptionsPattern", "[", "]"}], ",", " ", 
+   RowBox[{"OptionsPattern", "[", 
+    RowBox[{"{", "}"}], "]"}], ",", " ", "\n", "\t", 
+   RowBox[{"opts", ":", " ", 
+    RowBox[{"OptionsPattern", "[", 
+     RowBox[{"{", 
+      RowBox[{"func1", ",", " ", "myFunction", ",", " ", 
+       RowBox[{"\"\<opt1\>\"", " ", "->", " ", "1"}], ",", " ", 
+       RowBox[{"opt2", " ", "->", " ", "2"}]}], "}"}], "]"}]}], ",", " ", 
+   RowBox[{"Verbatim", "[", "___", "]"}], ","}], " ", "\n", "\t", "\n", 
+  "]"}]], "Code",
+ CellChangeTimes->{{3.9115730995642014`*^9, 3.9115733719696813`*^9}, {
+  3.9115734844645824`*^9, 
+  3.911573645956643*^9}},ExpressionUUID->"c2e2ba62-0822-4434-b4d0-\
+65b9aaa0e32b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"1", "+", "1"}], "->", 
+  RowBox[{"2", "+", "2"}]}], "\n", 
+ RowBox[{
+  RowBox[{"1", "+", "1"}], ":>", 
+  RowBox[{"2", "+", "2"}]}]}], "Input",
+ CellChangeTimes->{{3.9115740512495584`*^9, 3.9115740512495584`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"c58f9113-fc7a-4ad6-a346-c310505d26ac"],
+
+Cell[BoxData[
+ RowBox[{"2", "\[Rule]", "4"}]], "Output",
+ CellChangeTimes->{3.911574054155101*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"e3e55140-1f91-4a64-a837-881c94c1aad0"],
+
+Cell[BoxData[
+ RowBox[{"2", "\[RuleDelayed]", 
+  RowBox[{"2", "+", "2"}]}]], "Output",
+ CellChangeTimes->{3.911574054155101*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"502862c9-1b45-433d-a711-81e2e14c7e25"]
+}, Open  ]]
+},
+WindowSize->{773, 224},
+WindowMargins->{{Automatic, 300}, {265, Automatic}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a6fb568a-1966-4de0-9b70-0268308105d4"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1897, 40, 190, "Code",ExpressionUUID->"c2e2ba62-0822-4434-b4d0-65b9aaa0e32b"],
+Cell[CellGroupData[{
+Cell[2480, 64, 326, 8, 66, "Input",ExpressionUUID->"c58f9113-fc7a-4ad6-a346-c310505d26ac"],
+Cell[2809, 74, 176, 3, 44, "Output",ExpressionUUID->"e3e55140-1f91-4a64-a837-881c94c1aad0"],
+Cell[2988, 79, 206, 4, 44, "Output",ExpressionUUID->"502862c9-1b45-433d-a711-81e2e14c7e25"]
+}, Open  ]]
+}
+]
+*)
+

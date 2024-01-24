@@ -1,0 +1,826 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     41839,        818]
+NotebookOptionsPosition[     41163,        799]
+NotebookOutlinePosition[     41562,        815]
+CellTagsIndexPosition[     41519,        812]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "numberInterpreter", "]"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"numberInterpreter", "=", 
+    RowBox[{"Interpreter", "[", 
+     RowBox[{"\"\<Number\>\"", ",", 
+      RowBox[{"NumberPoint", "->", "\"\<,\>\""}]}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "currencyToAssoc", "]"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"currencyToAssoc", "[", 
+    RowBox[{"XMLElement", "[", 
+     RowBox[{"\"\<Valute\>\"", ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<ID\>\"", "->", "id_"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"XMLElement", "[", 
+         RowBox[{"\"\<NumCode\>\"", ",", "_", ",", 
+          RowBox[{"{", "numCode_", "}"}]}], "]"}], ",", 
+        RowBox[{"XMLElement", "[", 
+         RowBox[{"\"\<CharCode\>\"", ",", "_", ",", 
+          RowBox[{"{", "charCode_", "}"}]}], "]"}], ",", 
+        RowBox[{"XMLElement", "[", 
+         RowBox[{"\"\<Nominal\>\"", ",", "_", ",", 
+          RowBox[{"{", "nominal_", "}"}]}], "]"}], ",", 
+        RowBox[{"XMLElement", "[", 
+         RowBox[{"\"\<Name\>\"", ",", "_", ",", 
+          RowBox[{"{", "name_", "}"}]}], "]"}], ",", 
+        RowBox[{"XMLElement", "[", 
+         RowBox[{"\"\<Value\>\"", ",", "_", ",", 
+          RowBox[{"{", "value_", "}"}]}], "]"}], ",", "___"}], "}"}]}], "]"}],
+     "]"}], ":=", 
+   RowBox[{"<|", 
+    RowBox[{
+     RowBox[{"\"\<CurrencyId\>\"", "->", "id"}], ",", 
+     RowBox[{"\"\<CurrencyCode\>\"", "->", 
+      RowBox[{"numberInterpreter", "[", "numCode", "]"}]}], ",", 
+     RowBox[{"\"\<CurrencyIso\>\"", "->", "charCode"}], ",", 
+     RowBox[{"\"\<Nominal\>\"", "->", 
+      RowBox[{"numberInterpreter", "[", "nominal", "]"}]}], ",", 
+     RowBox[{"\"\<Name\>\"", "->", "name"}], ",", 
+     RowBox[{"\"\<Rate\>\"", "->", 
+      RowBox[{"numberInterpreter", "[", "value", "]"}]}]}], "|>"}]}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ClearAll", "[", "currencyRates", "]"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"currencyRates", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "request", ",", "response", ",", "bodyByteArray", ",", "body", ",", 
+      "xml", ",", "result"}], "}"}], ",", 
+    RowBox[{
+     RowBox[{"request", "=", 
+      RowBox[{
+      "HTTPRequest", "[", "\"\<http://www.cbr.ru/scripts/XML_daily.asp\>\"", 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"response", "=", 
+      RowBox[{"URLRead", "[", "request", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bodyByteArray", "=", 
+      RowBox[{"response", "[", "\"\<BodyByteArray\>\"", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"body", "=", 
+      RowBox[{"ByteArrayToString", "[", 
+       RowBox[{"bodyByteArray", ",", "\"\<WindowsCyrillic\>\""}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", "body", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"xml", "=", 
+      RowBox[{"ImportString", "[", 
+       RowBox[{"body", ",", "\"\<XML\>\""}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"result", "=", 
+      RowBox[{
+       RowBox[{"Map", "[", "currencyToAssoc", "]"}], "@", 
+       RowBox[{"FirstCase", "[", 
+        RowBox[{"xml", ",", 
+         RowBox[{
+          RowBox[{"XMLElement", "[", 
+           RowBox[{"\"\<ValCurs\>\"", ",", "_", ",", 
+            RowBox[{"rates", ":", 
+             RowBox[{
+              RowBox[{"{", "__", "}"}], ".."}]}]}], "]"}], ":>", "rates"}]}], 
+        "]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Return", "[", "result", "]"}]}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.909851826032298*^9, 3.9098518260363*^9}, {
+  3.90985187195586*^9, 3.909851876889022*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"5b995018-126b-41ae-88d8-a867f28c6d9b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"currencyRates", "[", "]"}]], "Input",
+ CellLabel->"In[15]:=",ExpressionUUID->"f141be4f-6ed6-487c-955c-e4b4297c6ebb"],
+
+Cell[BoxData["\<\"<?xml version=\\\"1.0\\\" \
+encoding=\\\"windows-1251\\\"?><ValCurs Date=\\\"25.11.2023\\\" \
+name=\\\"Foreign Currency Market\\\"><Valute \
+ID=\\\"R01010\\\"><NumCode>036</NumCode><CharCode>AUD</CharCode><Nominal>1</\
+Nominal><Name>\:0410\:0432\:0441\:0442\:0440\:0430\:043b\:0438\:0439\:0441\
+\:043a\:0438\:0439 \
+\:0434\:043e\:043b\:043b\:0430\:0440</Name><Value>58,2882</Value><VunitRate>\
+58,2882</VunitRate></Valute><Valute \
+ID=\\\"R01020A\\\"><NumCode>944</NumCode><CharCode>AZN</CharCode><Nominal>1</\
+Nominal><Name>\:0410\:0437\:0435\:0440\:0431\:0430\:0439\:0434\:0436\:0430\
+\:043d\:0441\:043a\:0438\:0439 \
+\:043c\:0430\:043d\:0430\:0442</Name><Value>52,2431</Value><VunitRate>52,2431<\
+/VunitRate></Valute><Valute \
+ID=\\\"R01035\\\"><NumCode>826</NumCode><CharCode>GBP</CharCode><Nominal>1</\
+Nominal><Name>\:0424\:0443\:043d\:0442 \:0441\:0442\:0435\:0440\:043b\:0438\
+\:043d\:0433\:043e\:0432 \:0421\:043e\:0435\:0434\:0438\:043d\:0435\:043d\
+\:043d\:043e\:0433\:043e \:043a\:043e\:0440\:043e\:043b\:0435\:0432\:0441\
+\:0442\:0432\:0430</Name><Value>111,2919</Value><VunitRate>111,2919</\
+VunitRate></Valute><Valute \
+ID=\\\"R01060\\\"><NumCode>051</NumCode><CharCode>AMD</CharCode><Nominal>100</\
+Nominal><Name>\:0410\:0440\:043c\:044f\:043d\:0441\:043a\:0438\:0445 \:0434\
+\:0440\:0430\:043c\:043e\:0432</Name><Value>22,0830</Value><VunitRate>0,22083<\
+/VunitRate></Valute><Valute \
+ID=\\\"R01090B\\\"><NumCode>933</NumCode><CharCode>BYN</CharCode><Nominal>1</\
+Nominal><Name>\:0411\:0435\:043b\:043e\:0440\:0443\:0441\:0441\:043a\:0438\
+\:0439 \:0440\:0443\:0431\:043b\:044c</Name><Value>28,6605</Value><VunitRate>\
+28,6605</VunitRate></Valute><Valute \
+ID=\\\"R01100\\\"><NumCode>975</NumCode><CharCode>BGN</CharCode><Nominal>1</\
+Nominal><Name>\:0411\:043e\:043b\:0433\:0430\:0440\:0441\:043a\:0438\:0439 \
+\:043b\:0435\:0432</Name><Value>49,4975</Value><VunitRate>49,4975</VunitRate><\
+/Valute><Valute \
+ID=\\\"R01115\\\"><NumCode>986</NumCode><CharCode>BRL</CharCode><Nominal>1</\
+Nominal><Name>\:0411\:0440\:0430\:0437\:0438\:043b\:044c\:0441\:043a\:0438\
+\:0439 \:0440\:0435\:0430\:043b</Name><Value>18,1518</Value><VunitRate>18,\
+1518</VunitRate></Valute><Valute \
+ID=\\\"R01135\\\"><NumCode>348</NumCode><CharCode>HUF</CharCode><Nominal>100</\
+Nominal><Name>\:0412\:0435\:043d\:0433\:0435\:0440\:0441\:043a\:0438\:0445 \
+\:0444\:043e\:0440\:0438\:043d\:0442\:043e\:0432</Name><Value>25,4801</Value><\
+VunitRate>0,254801</VunitRate></Valute><Valute \
+ID=\\\"R01150\\\"><NumCode>704</NumCode><CharCode>VND</CharCode><Nominal>\
+10000</Nominal><Name>\:0412\:044c\:0435\:0442\:043d\:0430\:043c\:0441\:043a\
+\:0438\:0445 \
+\:0434\:043e\:043d\:0433\:043e\:0432</Name><Value>37,1184</Value><VunitRate>0,\
+00371184</VunitRate></Valute><Valute \
+ID=\\\"R01200\\\"><NumCode>344</NumCode><CharCode>HKD</CharCode><Nominal>1</\
+Nominal><Name>\:0413\:043e\:043d\:043a\:043e\:043d\:0433\:0441\:043a\:0438\
+\:0439 \:0434\:043e\:043b\:043b\:0430\:0440</Name><Value>11,4156</Value><\
+VunitRate>11,4156</VunitRate></Valute><Valute \
+ID=\\\"R01210\\\"><NumCode>981</NumCode><CharCode>GEL</CharCode><Nominal>1</\
+Nominal><Name>\:0413\:0440\:0443\:0437\:0438\:043d\:0441\:043a\:0438\:0439 \
+\:043b\:0430\:0440\:0438</Name><Value>32,7459</Value><VunitRate>32,7459</\
+VunitRate></Valute><Valute \
+ID=\\\"R01215\\\"><NumCode>208</NumCode><CharCode>DKK</CharCode><Nominal>1</\
+Nominal><Name>\:0414\:0430\:0442\:0441\:043a\:0430\:044f \:043a\:0440\:043e\
+\:043d\:0430</Name><Value>12,9838</Value><VunitRate>12,9838</VunitRate></\
+Valute><Valute \
+ID=\\\"R01230\\\"><NumCode>784</NumCode><CharCode>AED</CharCode><Nominal>1</\
+Nominal><Name>\:0414\:0438\:0440\:0445\:0430\:043c \
+\:041e\:0410\:042d</Name><Value>24,1833</Value><VunitRate>24,1833</VunitRate><\
+/Valute><Valute \
+ID=\\\"R01235\\\"><NumCode>840</NumCode><CharCode>USD</CharCode><Nominal>1</\
+Nominal><Name>\:0414\:043e\:043b\:043b\:0430\:0440 \
+\:0421\:0428\:0410</Name><Value>88,8133</Value><VunitRate>88,8133</VunitRate><\
+/Valute><Valute \
+ID=\\\"R01239\\\"><NumCode>978</NumCode><CharCode>EUR</CharCode><Nominal>1</\
+Nominal><Name>\:0415\:0432\:0440\:043e</Name><Value>96,9187</Value><VunitRate>\
+96,9187</VunitRate></Valute><Valute \
+ID=\\\"R01240\\\"><NumCode>818</NumCode><CharCode>EGP</CharCode><Nominal>10</\
+Nominal><Name>\:0415\:0433\:0438\:043f\:0435\:0442\:0441\:043a\:0438\:0445 \
+\:0444\:0443\:043d\:0442\:043e\:0432</Name><Value>28,7472</Value><VunitRate>2,\
+87472</VunitRate></Valute><Valute \
+ID=\\\"R01270\\\"><NumCode>356</NumCode><CharCode>INR</CharCode><Nominal>10</\
+Nominal><Name>\:0418\:043d\:0434\:0438\:0439\:0441\:043a\:0438\:0445 \:0440\
+\:0443\:043f\:0438\:0439</Name><Value>10,6664</Value><VunitRate>1,06664</\
+VunitRate></Valute><Valute \
+ID=\\\"R01280\\\"><NumCode>360</NumCode><CharCode>IDR</CharCode><Nominal>\
+10000</Nominal><Name>\:0418\:043d\:0434\:043e\:043d\:0435\:0437\:0438\:0439\
+\:0441\:043a\:0438\:0445 \
+\:0440\:0443\:043f\:0438\:0439</Name><Value>56,9572</Value><VunitRate>0,\
+00569572</VunitRate></Valute><Valute \
+ID=\\\"R01335\\\"><NumCode>398</NumCode><CharCode>KZT</CharCode><Nominal>100</\
+Nominal><Name>\:041a\:0430\:0437\:0430\:0445\:0441\:0442\:0430\:043d\:0441\
+\:043a\:0438\:0445 \
+\:0442\:0435\:043d\:0433\:0435</Name><Value>19,2583</Value><VunitRate>0,\
+192583</VunitRate></Valute><Valute \
+ID=\\\"R01350\\\"><NumCode>124</NumCode><CharCode>CAD</CharCode><Nominal>1</\
+Nominal><Name>\:041a\:0430\:043d\:0430\:0434\:0441\:043a\:0438\:0439 \:0434\
+\:043e\:043b\:043b\:0430\:0440</Name><Value>64,8320</Value><VunitRate>64,832</\
+VunitRate></Valute><Valute \
+ID=\\\"R01355\\\"><NumCode>634</NumCode><CharCode>QAR</CharCode><Nominal>1</\
+Nominal><Name>\:041a\:0430\:0442\:0430\:0440\:0441\:043a\:0438\:0439 \:0440\
+\:0438\:0430\:043b</Name><Value>24,3993</Value><VunitRate>24,3993</VunitRate><\
+/Valute><Valute \
+ID=\\\"R01370\\\"><NumCode>417</NumCode><CharCode>KGS</CharCode><Nominal>10</\
+Nominal><Name>\:041a\:0438\:0440\:0433\:0438\:0437\:0441\:043a\:0438\:0445 \
+\:0441\:043e\:043c\:043e\:0432</Name><Value>10,0210</Value><VunitRate>1,0021</\
+VunitRate></Valute><Valute \
+ID=\\\"R01375\\\"><NumCode>156</NumCode><CharCode>CNY</CharCode><Nominal>1</\
+Nominal><Name>\:041a\:0438\:0442\:0430\:0439\:0441\:043a\:0438\:0439 \:044e\
+\:0430\:043d\:044c</Name><Value>12,3949</Value><VunitRate>12,3949</VunitRate><\
+/Valute><Valute \
+ID=\\\"R01500\\\"><NumCode>498</NumCode><CharCode>MDL</CharCode><Nominal>10</\
+Nominal><Name>\:041c\:043e\:043b\:0434\:0430\:0432\:0441\:043a\:0438\:0445 \
+\:043b\:0435\:0435\:0432</Name><Value>49,9257</Value><VunitRate>4,99257</\
+VunitRate></Valute><Valute \
+ID=\\\"R01530\\\"><NumCode>554</NumCode><CharCode>NZD</CharCode><Nominal>1</\
+Nominal><Name>\:041d\:043e\:0432\:043e\:0437\:0435\:043b\:0430\:043d\:0434\
+\:0441\:043a\:0438\:0439 \
+\:0434\:043e\:043b\:043b\:0430\:0440</Name><Value>53,7765</Value><VunitRate>\
+53,7765</VunitRate></Valute><Valute \
+ID=\\\"R01535\\\"><NumCode>578</NumCode><CharCode>NOK</CharCode><Nominal>10</\
+Nominal><Name>\:041d\:043e\:0440\:0432\:0435\:0436\:0441\:043a\:0438\:0445 \
+\:043a\:0440\:043e\:043d</Name><Value>82,6632</Value><VunitRate>8,26632</\
+VunitRate></Valute><Valute \
+ID=\\\"R01565\\\"><NumCode>985</NumCode><CharCode>PLN</CharCode><Nominal>1</\
+Nominal><Name>\:041f\:043e\:043b\:044c\:0441\:043a\:0438\:0439 \:0437\:043b\
+\:043e\:0442\:044b\:0439</Name><Value>22,1463</Value><VunitRate>22,1463</\
+VunitRate></Valute><Valute \
+ID=\\\"R01585F\\\"><NumCode>946</NumCode><CharCode>RON</CharCode><Nominal>1</\
+Nominal><Name>\:0420\:0443\:043c\:044b\:043d\:0441\:043a\:0438\:0439 \:043b\
+\:0435\:0439</Name><Value>19,4941</Value><VunitRate>19,4941</VunitRate></\
+Valute><Valute \
+ID=\\\"R01589\\\"><NumCode>960</NumCode><CharCode>XDR</CharCode><Nominal>1</\
+Nominal><Name>\:0421\:0414\:0420 (\:0441\:043f\:0435\:0446\:0438\:0430\:043b\
+\:044c\:043d\:044b\:0435 \:043f\:0440\:0430\:0432\:0430 \:0437\:0430\:0438\
+\:043c\:0441\:0442\:0432\:043e\:0432\:0430\:043d\:0438\:044f)</Name><Value>\
+118,2034</Value><VunitRate>118,2034</VunitRate></Valute><Valute ID=\\\"R01625\
+\\\"><NumCode>702</NumCode><CharCode>SGD</CharCode><Nominal>1</Nominal><Name>\
+\:0421\:0438\:043d\:0433\:0430\:043f\:0443\:0440\:0441\:043a\:0438\:0439 \
+\:0434\:043e\:043b\:043b\:0430\:0440</Name><Value>66,1946</Value><VunitRate>\
+66,1946</VunitRate></Valute><Valute \
+ID=\\\"R01670\\\"><NumCode>972</NumCode><CharCode>TJS</CharCode><Nominal>10</\
+Nominal><Name>\:0422\:0430\:0434\:0436\:0438\:043a\:0441\:043a\:0438\:0445 \
+\:0441\:043e\:043c\:043e\:043d\:0438</Name><Value>81,0769</Value><VunitRate>8,\
+10769</VunitRate></Valute><Valute \
+ID=\\\"R01675\\\"><NumCode>764</NumCode><CharCode>THB</CharCode><Nominal>10</\
+Nominal><Name>\:0422\:0430\:0438\:043b\:0430\:043d\:0434\:0441\:043a\:0438\
+\:0445 \:0431\:0430\:0442\:043e\:0432</Name><Value>25,0875</Value><VunitRate>\
+2,50875</VunitRate></Valute><Valute \
+ID=\\\"R01700J\\\"><NumCode>949</NumCode><CharCode>TRY</CharCode><Nominal>10</\
+Nominal><Name>\:0422\:0443\:0440\:0435\:0446\:043a\:0438\:0445 \:043b\:0438\
+\:0440</Name><Value>30,8331</Value><VunitRate>3,08331</VunitRate></Valute><\
+Valute ID=\\\"R01710A\\\"><NumCode>934</NumCode><CharCode>TMT</CharCode><\
+Nominal>1</Nominal><Name>\:041d\:043e\:0432\:044b\:0439 \:0442\:0443\:0440\
+\:043a\:043c\:0435\:043d\:0441\:043a\:0438\:0439 \:043c\:0430\:043d\:0430\
+\:0442</Name><Value>25,3752</Value><VunitRate>25,3752</VunitRate></Valute><\
+Valute ID=\\\"R01717\\\"><NumCode>860</NumCode><CharCode>UZS</CharCode><\
+Nominal>10000</Nominal><Name>\:0423\:0437\:0431\:0435\:043a\:0441\:043a\:0438\
+\:0445 \:0441\:0443\:043c\:043e\:0432</Name><Value>72,1767</Value><VunitRate>\
+0,00721767</VunitRate></Valute><Valute \
+ID=\\\"R01720\\\"><NumCode>980</NumCode><CharCode>UAH</CharCode><Nominal>10</\
+Nominal><Name>\:0423\:043a\:0440\:0430\:0438\:043d\:0441\:043a\:0438\:0445 \
+\:0433\:0440\:0438\:0432\:0435\:043d</Name><Value>24,6606</Value><VunitRate>2,\
+46606</VunitRate></Valute><Valute \
+ID=\\\"R01760\\\"><NumCode>203</NumCode><CharCode>CZK</CharCode><Nominal>10</\
+Nominal><Name>\:0427\:0435\:0448\:0441\:043a\:0438\:0445 \:043a\:0440\:043e\
+\:043d</Name><Value>39,7322</Value><VunitRate>3,97322</VunitRate></Valute><\
+Valute ID=\\\"R01770\\\"><NumCode>752</NumCode><CharCode>SEK</CharCode><\
+Nominal>10</Nominal><Name>\:0428\:0432\:0435\:0434\:0441\:043a\:0438\:0445 \
+\:043a\:0440\:043e\:043d</Name><Value>84,7536</Value><VunitRate>8,47536</\
+VunitRate></Valute><Valute \
+ID=\\\"R01775\\\"><NumCode>756</NumCode><CharCode>CHF</CharCode><Nominal>1</\
+Nominal><Name>\:0428\:0432\:0435\:0439\:0446\:0430\:0440\:0441\:043a\:0438\
+\:0439 \:0444\:0440\:0430\:043d\:043a</Name><Value>100,4335</Value><VunitRate>\
+100,4335</VunitRate></Valute><Valute \
+ID=\\\"R01805F\\\"><NumCode>941</NumCode><CharCode>RSD</CharCode><Nominal>100<\
+/Nominal><Name>\:0421\:0435\:0440\:0431\:0441\:043a\:0438\:0445 \:0434\:0438\
+\:043d\:0430\:0440\:043e\:0432</Name><Value>82,6983</Value><VunitRate>0,\
+826983</VunitRate></Valute><Valute \
+ID=\\\"R01810\\\"><NumCode>710</NumCode><CharCode>ZAR</CharCode><Nominal>10</\
+Nominal><Name>\:042e\:0436\:043d\:043e\:0430\:0444\:0440\:0438\:043a\:0430\
+\:043d\:0441\:043a\:0438\:0445 \
+\:0440\:044d\:043d\:0434\:043e\:0432</Name><Value>47,0019</Value><VunitRate>4,\
+70019</VunitRate></Valute><Valute \
+ID=\\\"R01815\\\"><NumCode>410</NumCode><CharCode>KRW</CharCode><Nominal>1000<\
+/Nominal><Name>\:0412\:043e\:043d \:0420\:0435\:0441\:043f\:0443\:0431\:043b\
+\:0438\:043a\:0438 \
+\:041a\:043e\:0440\:0435\:044f</Name><Value>67,9832</Value><VunitRate>0,\
+0679832</VunitRate></Valute><Valute \
+ID=\\\"R01820\\\"><NumCode>392</NumCode><CharCode>JPY</CharCode><Nominal>100</\
+Nominal><Name>\:042f\:043f\:043e\:043d\:0441\:043a\:0438\:0445 \:0438\:0435\
+\:043d</Name><Value>59,3831</Value><VunitRate>0,593831</VunitRate></Valute></\
+ValCurs>\"\>"], "Print",
+ CellChangeTimes->{3.909851887537672*^9},
+ CellLabel->
+  "During evaluation of \
+In[15]:=",ExpressionUUID->"1fadf14a-7aaf-41fb-a64e-ea5d9ab52ae0"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01010\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "36"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"AUD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0410\:0432\:0441\:0442\:0440\:0430\:043b\:0438\:0439\
+\:0441\:043a\:0438\:0439 \:0434\:043e\:043b\:043b\:0430\:0440\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "58.2882`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01020A\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "944"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"AZN\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0410\:0437\:0435\:0440\:0431\:0430\:0439\:0434\:0436\
+\:0430\:043d\:0441\:043a\:0438\:0439 \:043c\:0430\:043d\:0430\:0442\"\>"}], 
+     ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "52.2431`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01035\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "826"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"GBP\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0424\:0443\:043d\:0442 \:0441\:0442\:0435\:0440\:043b\
+\:0438\:043d\:0433\:043e\:0432 \:0421\:043e\:0435\:0434\:0438\:043d\:0435\
+\:043d\:043d\:043e\:0433\:043e \:043a\:043e\:0440\:043e\:043b\:0435\:0432\
+\:0441\:0442\:0432\:0430\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "111.2919`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01060\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "51"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"AMD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "100"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0410\:0440\:043c\:044f\:043d\:0441\:043a\:0438\:0445 \
+\:0434\:0440\:0430\:043c\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "22.083`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01090B\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "933"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"BYN\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0411\:0435\:043b\:043e\:0440\:0443\:0441\:0441\:043a\
+\:0438\:0439 \:0440\:0443\:0431\:043b\:044c\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "28.6605`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01100\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "975"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"BGN\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0411\:043e\:043b\:0433\:0430\:0440\:0441\:043a\:0438\
+\:0439 \:043b\:0435\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "49.4975`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01115\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "986"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"BRL\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0411\:0440\:0430\:0437\:0438\:043b\:044c\:0441\:043a\
+\:0438\:0439 \:0440\:0435\:0430\:043b\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "18.1518`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01135\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "348"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"HUF\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "100"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0412\:0435\:043d\:0433\:0435\:0440\:0441\:043a\:0438\
+\:0445 \:0444\:043e\:0440\:0438\:043d\:0442\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "25.4801`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01150\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "704"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"VND\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10000"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0412\:044c\:0435\:0442\:043d\:0430\:043c\:0441\:043a\
+\:0438\:0445 \:0434\:043e\:043d\:0433\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "37.1184`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01200\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "344"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"HKD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0413\:043e\:043d\:043a\:043e\:043d\:0433\:0441\:043a\
+\:0438\:0439 \:0434\:043e\:043b\:043b\:0430\:0440\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "11.4156`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01210\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "981"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"GEL\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0413\:0440\:0443\:0437\:0438\:043d\:0441\:043a\:0438\
+\:0439 \:043b\:0430\:0440\:0438\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "32.7459`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01215\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "208"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"DKK\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0414\:0430\:0442\:0441\:043a\:0430\:044f \:043a\:0440\
+\:043e\:043d\:0430\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "12.9838`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01230\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "784"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"AED\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0414\:0438\:0440\:0445\:0430\:043c \:041e\:0410\:042d\
+\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "24.1833`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01235\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "840"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"USD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0414\:043e\:043b\:043b\:0430\:0440 \:0421\:0428\:0410\
+\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "88.8133`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01239\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "978"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"EUR\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", "\[Rule]", "\<\"\:0415\:0432\:0440\:043e\"\>"}], 
+     ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "96.9187`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01240\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "818"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"EGP\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0415\:0433\:0438\:043f\:0435\:0442\:0441\:043a\:0438\
+\:0445 \:0444\:0443\:043d\:0442\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "28.7472`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01270\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "356"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"INR\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0418\:043d\:0434\:0438\:0439\:0441\:043a\:0438\:0445 \
+\:0440\:0443\:043f\:0438\:0439\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "10.6664`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01280\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "360"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"IDR\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10000"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0418\:043d\:0434\:043e\:043d\:0435\:0437\:0438\:0439\
+\:0441\:043a\:0438\:0445 \:0440\:0443\:043f\:0438\:0439\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "56.9572`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01335\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "398"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"KZT\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "100"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041a\:0430\:0437\:0430\:0445\:0441\:0442\:0430\:043d\
+\:0441\:043a\:0438\:0445 \:0442\:0435\:043d\:0433\:0435\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "19.2583`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01350\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "124"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"CAD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041a\:0430\:043d\:0430\:0434\:0441\:043a\:0438\:0439 \
+\:0434\:043e\:043b\:043b\:0430\:0440\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "64.832`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01355\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "634"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"QAR\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041a\:0430\:0442\:0430\:0440\:0441\:043a\:0438\:0439 \
+\:0440\:0438\:0430\:043b\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "24.3993`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01370\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "417"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"KGS\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041a\:0438\:0440\:0433\:0438\:0437\:0441\:043a\:0438\
+\:0445 \:0441\:043e\:043c\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "10.021`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01375\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "156"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"CNY\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041a\:0438\:0442\:0430\:0439\:0441\:043a\:0438\:0439 \
+\:044e\:0430\:043d\:044c\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "12.3949`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01500\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "498"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"MDL\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041c\:043e\:043b\:0434\:0430\:0432\:0441\:043a\:0438\
+\:0445 \:043b\:0435\:0435\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "49.9257`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01530\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "554"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"NZD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041d\:043e\:0432\:043e\:0437\:0435\:043b\:0430\:043d\
+\:0434\:0441\:043a\:0438\:0439 \:0434\:043e\:043b\:043b\:0430\:0440\"\>"}], 
+     ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "53.7765`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01535\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "578"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"NOK\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041d\:043e\:0440\:0432\:0435\:0436\:0441\:043a\:0438\
+\:0445 \:043a\:0440\:043e\:043d\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "82.6632`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01565\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "985"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"PLN\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041f\:043e\:043b\:044c\:0441\:043a\:0438\:0439 \:0437\
+\:043b\:043e\:0442\:044b\:0439\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "22.1463`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01585F\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "946"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"RON\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0420\:0443\:043c\:044b\:043d\:0441\:043a\:0438\:0439 \
+\:043b\:0435\:0439\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "19.4941`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01589\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "960"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"XDR\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0421\:0414\:0420 \
+(\:0441\:043f\:0435\:0446\:0438\:0430\:043b\:044c\:043d\:044b\:0435 \:043f\
+\:0440\:0430\:0432\:0430 \:0437\:0430\:0438\:043c\:0441\:0442\:0432\:043e\
+\:0432\:0430\:043d\:0438\:044f)\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "118.2034`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01625\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "702"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"SGD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0421\:0438\:043d\:0433\:0430\:043f\:0443\:0440\:0441\
+\:043a\:0438\:0439 \:0434\:043e\:043b\:043b\:0430\:0440\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "66.1946`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01670\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "972"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"TJS\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0422\:0430\:0434\:0436\:0438\:043a\:0441\:043a\:0438\
+\:0445 \:0441\:043e\:043c\:043e\:043d\:0438\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "81.0769`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01675\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "764"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"THB\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0422\:0430\:0438\:043b\:0430\:043d\:0434\:0441\:043a\
+\:0438\:0445 \:0431\:0430\:0442\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "25.0875`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01700J\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "949"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"TRY\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0422\:0443\:0440\:0435\:0446\:043a\:0438\:0445 \:043b\
+\:0438\:0440\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "30.8331`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01710A\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "934"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"TMT\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:041d\:043e\:0432\:044b\:0439 \:0442\:0443\:0440\:043a\
+\:043c\:0435\:043d\:0441\:043a\:0438\:0439 \
+\:043c\:0430\:043d\:0430\:0442\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "25.3752`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01717\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "860"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"UZS\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10000"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0423\:0437\:0431\:0435\:043a\:0441\:043a\:0438\:0445 \
+\:0441\:0443\:043c\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "72.1767`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01720\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "980"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"UAH\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0423\:043a\:0440\:0430\:0438\:043d\:0441\:043a\:0438\
+\:0445 \:0433\:0440\:0438\:0432\:0435\:043d\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "24.6606`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01760\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "203"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"CZK\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0427\:0435\:0448\:0441\:043a\:0438\:0445 \:043a\:0440\
+\:043e\:043d\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "39.7322`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01770\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "752"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"SEK\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0428\:0432\:0435\:0434\:0441\:043a\:0438\:0445 \:043a\
+\:0440\:043e\:043d\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "84.7536`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01775\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "756"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"CHF\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0428\:0432\:0435\:0439\:0446\:0430\:0440\:0441\:043a\
+\:0438\:0439 \:0444\:0440\:0430\:043d\:043a\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "100.4335`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01805F\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "941"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"RSD\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "100"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0421\:0435\:0440\:0431\:0441\:043a\:0438\:0445 \:0434\
+\:0438\:043d\:0430\:0440\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "82.6983`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01810\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "710"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"ZAR\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "10"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:042e\:0436\:043d\:043e\:0430\:0444\:0440\:0438\:043a\
+\:0430\:043d\:0441\:043a\:0438\:0445 \
+\:0440\:044d\:043d\:0434\:043e\:0432\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "47.0019`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01815\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "410"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"KRW\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "1000"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:0412\:043e\:043d \:0420\:0435\:0441\:043f\:0443\:0431\
+\:043b\:0438\:043a\:0438 \:041a\:043e\:0440\:0435\:044f\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "67.9832`"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"CurrencyId\"\>", "\[Rule]", "\<\"R01820\"\>"}], ",", 
+     RowBox[{"\<\"CurrencyCode\"\>", "\[Rule]", "392"}], ",", 
+     RowBox[{"\<\"CurrencyIso\"\>", "\[Rule]", "\<\"JPY\"\>"}], ",", 
+     RowBox[{"\<\"Nominal\"\>", "\[Rule]", "100"}], ",", 
+     RowBox[{"\<\"Name\"\>", 
+      "\[Rule]", "\<\"\:042f\:043f\:043e\:043d\:0441\:043a\:0438\:0445 \:0438\
+\:0435\:043d\"\>"}], ",", 
+     RowBox[{"\<\"Rate\"\>", "\[Rule]", "59.3831`"}]}], 
+    "\[RightAssociation]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.9098518883152323`*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"b836f36f-4021-4a22-a972-b0d2a2d40260"]
+}, Open  ]]
+},
+WindowSize->{1492, 803},
+WindowMargins->{{Automatic, 80}, {42, Automatic}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"79728bbb-6dab-4c5e-a754-486524519020"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3883, 96, 431, "Input",ExpressionUUID->"5b995018-126b-41ae-88d8-a867f28c6d9b"],
+Cell[CellGroupData[{
+Cell[4466, 120, 140, 2, 31, "Input",ExpressionUUID->"f141be4f-6ed6-487c-955c-e4b4297c6ebb"],
+Cell[4609, 124, 12006, 186, 880, "Print",ExpressionUUID->"1fadf14a-7aaf-41fb-a64e-ea5d9ab52ae0"],
+Cell[16618, 312, 24529, 484, 918, "Output",ExpressionUUID->"b836f36f-4021-4a22-a972-b0d2a2d40260"]
+}, Open  ]]
+}
+]
+*)
+
