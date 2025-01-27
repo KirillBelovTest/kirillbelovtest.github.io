@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<movies>
+    <movie>
+        <title>The Shawshank Redemption</title>
+        <director>Frank Darabont</director>
+        <year>1994</year>
+        <genre>Drama</genre>
+        <is_available>true</is_available>
+        <rating>9.3</rating>
+        <duration>142</duration>
+        <actors>
+            <actor>Tim Robbins</actor>
+            <actor>Morgan Freeman</actor>
+        </actors>
+    </movie>
+    <movie>
+        <title>The Godfather</title>
+        <director>Francis Ford Coppola</director>
+        <year>1972</year>
+        <genre>Crime, Drama</genre>
+        <is_available>false</is_available>
+        <rating>9.2</rating>
+        <duration>175</duration>
+        <actors>
+            <actor>Marlon Brando</actor>
+            <actor>Al Pacino</actor>
+        </actors>
+    </movie>
+    <movie>
+        <title>Inception</title>
+        <director>Christopher Nolan</director>
+        <year>2010</year>
+        <genre>Sci-Fi, Action</genre>
+        <is_available>true</is_available>
+        <rating>8.8</rating>
+        <duration>148</duration>
+        <actors>
+            <actor>Leonardo DiCaprio</actor>
+            <actor>Joseph Gordon-Levitt</actor>
+        </actors>
+    </movie>
+    <movie>
+        <title>Pulp Fiction</title>
+        <director>Quentin Tarantino</director>
+        <year>1994</year>
+        <genre>Crime, Drama</genre>
+        <is_available>true</is_available>
+        <rating>8.9</rating>
+        <duration>154</duration>
+        <actors>
+            <actor>John Travolta</actor>
+            <actor>Uma Thurman</actor>
+        </actors>
+    </movie>
+</movies>
