@@ -1,0 +1,11 @@
+title,author,year_published,genre,is_available,rating,price,pages
+"1984","George Orwell",1949,"Dystopian",true,4.7,9.99,328
+"To Kill a Mockingbird","Harper Lee",1960,"Fiction",false,4.8,7.99,281
+"The Great Gatsby","F. Scott Fitzgerald",1925,"Classic",true,4.5,6.50,180
+"Brave New World","Aldous Huxley",1932,"Science Fiction",true,4.6,8.99,288
+"Pride and Prejudice","Jane Austen",1813,"Romance",false,4.4,5.99,279
+"The Catcher in the Rye","J.D. Salinger",1951,"Fiction",true,4.3,7.50,224
+"The Hobbit","J.R.R. Tolkien",1937,"Fantasy",true,4.9,10.99,310
+"Fahrenheit 451","Ray Bradbury",1953,"Science Fiction",false,4.7,8.25,249
+"The Lord of the Rings","J.R.R. Tolkien",1954,"Fantasy",true,4.95,15.99,1178
+"Crime and Punishment","Fyodor Dostoevsky",1866,"Classic",true,4.6,9.50,430
