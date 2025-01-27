@@ -1,0 +1,41 @@
+{
+  "company": "TechCorp",
+  "founded": 2005,
+  "isPublic": true,
+  "offices": [
+    {
+      "location": "New York",
+      "employees": 120,
+      "departments": ["Sales", "Engineering", "HR"]
+    },
+    {
+      "location": "San Francisco",
+      "employees": 200,
+      "departments": ["Engineering", "Product", "Support"]
+    }
+  ],
+  "products": [
+    {
+      "name": "Widget Pro",
+      "price": 99.99,
+      "features": ["Durable", "Lightweight", "Eco-Friendly"],
+      "inStock": true
+    },
+    {
+      "name": "Gadget Lite",
+      "price": 49.99,
+      "features": ["Compact", "Affordable"],
+      "inStock": false
+    }
+  ],
+  "contact": {
+    "email": "info@techcorp.com",
+    "phone": "+1-800-555-TECH",
+    "socialMedia": {
+      "twitter": "@TechCorp",
+      "linkedIn": "linkedin.com/company/techcorp"
+    }
+  },
+  "tags": ["technology", "innovation", "software"],
+  "metadata": null
+}
